@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "6969:80"
+    volumes:
+      - drupaldata:/var/www/html
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: Passw0rd
+      MARIADB_DATABASE: drupal
+    volumes:
+      - drupaldbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+
+volumes:
+  drupaldata:
+  drupaldbdata:
